@@ -1,11 +1,13 @@
 package com.saib.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.saib.models.Account;
 import com.saib.models.Transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -82,6 +84,36 @@ public class TransactionController {
 		String result=transactionService.deleteTransaction(transactionID);
 		ApiSuccessPayload payload=ApiSuccessPayload.build(result,result,HttpStatus.OK);
 		ResponseEntity<ApiSuccessPayload> response=new ResponseEntity<ApiSuccessPayload>(payload, HttpStatus.OK);
+		return response;
+	}
+	
+	@GetMapping("/transactions/transactionType/{transactionType}")
+	public ResponseEntity<ApiSuccessPayload> getTransactionByTransactionType(@PathVariable String transactionType)
+	{
+		List<Transaction> list=transactionService.getTransactionByTransactionType(transactionType);
+		HttpStatus status=HttpStatus.OK;
+		ApiSuccessPayload payload=ApiSuccessPayload.build(list, "Transactions Found",status);
+		ResponseEntity<ApiSuccessPayload> response=new ResponseEntity<ApiSuccessPayload>(payload, status);
+		return response;
+	}
+	
+	@GetMapping("/transactions/date/{date}")
+	public ResponseEntity<ApiSuccessPayload> getTransactionByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime date)
+	{
+		List<Transaction> list=transactionService.getTransactionByDate(date);
+		HttpStatus status=HttpStatus.OK;
+		ApiSuccessPayload payload=ApiSuccessPayload.build(list, "Transactions Found",status);
+		ResponseEntity<ApiSuccessPayload> response=new ResponseEntity<ApiSuccessPayload>(payload, status);
+		return response;
+	}
+	
+	@GetMapping("/transactions/date&transactionType/{date&transactionType}")
+	public ResponseEntity<ApiSuccessPayload> getTransactionByDateAndTransactionType(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime date, String transactionType)
+	{
+		List<Transaction> list=transactionService.getTransactionByDateAndTransactionType(date,transactionType);
+		HttpStatus status=HttpStatus.OK;
+		ApiSuccessPayload payload=ApiSuccessPayload.build(list, "Transactions Found",status);
+		ResponseEntity<ApiSuccessPayload> response=new ResponseEntity<ApiSuccessPayload>(payload, status);
 		return response;
 	}
 	

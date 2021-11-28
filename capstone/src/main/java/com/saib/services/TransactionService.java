@@ -1,5 +1,6 @@
 package com.saib.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,6 +90,24 @@ public class TransactionService {
 		catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}	
+	}
+	
+	public List<Transaction> getTransactionByTransactionType(String TransactionType){
+		
+		List<Transaction> transactions=transactionRepository.getTransactionByTransactionType(TransactionType);
+		return transactions;
+	}
+	public List<Transaction> getTransactionByDate(LocalDateTime date){
+		
+		List<Transaction> transactions=transactionRepository.getTransactionByDate(date);
+		return transactions;
+	}
+	
+
+	public List<Transaction> getTransactionByDateAndTransactionType(LocalDateTime date, String transactionType){
+
+		List<Transaction> transactions=transactionRepository.getTransactionByDateAndTransactionType(date , transactionType);
+		return transactions;
 	}
 	
 	public List<Transaction> getAllTransactions ( Integer pageNumber, Integer pageSize){
