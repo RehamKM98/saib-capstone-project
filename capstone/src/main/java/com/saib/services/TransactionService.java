@@ -1,14 +1,19 @@
 package com.saib.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-
+import com.saib.models.Account;
 import com.saib.models.Transaction;
 import com.saib.repository.TransactionRepository;
 import com.saib.util.Results;
@@ -84,6 +89,36 @@ public class TransactionService {
 		catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}	
+	}
+	
+	public List<Transaction> getAllTransactions ( Integer pageNumber, Integer pageSize){
+		Pageable paging = PageRequest.of(pageNumber, pageSize);
+		Page <Transaction>PageRequest = transactionRepository.findAll(paging);
+		int totalElements = PageRequest.getNumberOfElements();
+		int total = PageRequest.getTotalPages();
+		System.out.println("Total Numner of Pages Are: "+ total+ "  Total Elements: "+ totalElements);
+
+		if (PageRequest.hasContent()) {
+			return PageRequest.getContent();
+		}
+		else {
+			return new ArrayList<Transaction>();
+		}
+	}
+	
+	public List<Transaction> getAllTransactions ( Integer pageNumber, Integer pageSize, String sortBy){
+		Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+		Page <Transaction>PageRequest = transactionRepository.findAll(paging);
+		int totalElements = PageRequest.getNumberOfElements();
+		int total = PageRequest.getTotalPages();
+		System.out.println("Total Numner of Pages Are: "+ total+ "  Total Elements: "+ totalElements);
+
+		if (PageRequest.hasContent()) {
+			return PageRequest.getContent();
+		}
+		else {
+			return new ArrayList<Transaction>();
+		}
 	}
 	
 }

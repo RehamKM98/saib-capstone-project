@@ -105,6 +105,28 @@ public List<Account> getAccountsByGender(String gender){
 		return accounts;
 	}
 
+public List<Account> getAccountByAccountType(String accountType){
+	
+	List<Account> accounts=accountRepository.findAccountByAccountType(accountType);
+	return accounts;
+}
+
+
+public List<Account> getAllAccount ( Integer pageNumber, Integer pageSize){
+	Pageable paging = PageRequest.of(pageNumber, pageSize);
+	Page <Account>PageRequest = accountRepository.findAll(paging);
+	int totalElements = PageRequest.getNumberOfElements();
+	int total = PageRequest.getTotalPages();
+	System.out.println("Total Numner of Pages Are: "+ total+ "  Total Elements: "+ totalElements);
+
+	if (PageRequest.hasContent()) {
+		return PageRequest.getContent();
+	}
+	else {
+		return new ArrayList<Account>();
+	}
+}
+
 public List<Account> getAllAccount ( Integer pageNumber, Integer pageSize, String sortBy){
 	Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
 	Page <Account>PageRequest = accountRepository.findAll(paging);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saib.config.ApiSuccessPayload;
@@ -83,5 +84,28 @@ public class TransactionController {
 		ResponseEntity<ApiSuccessPayload> response=new ResponseEntity<ApiSuccessPayload>(payload, HttpStatus.OK);
 		return response;
 	}
+	
+	@GetMapping("/transactions/all")
+	public ResponseEntity<ApiSuccessPayload> getAllTransactions(@RequestParam int pageNumber,@RequestParam int pageSize)
+	{
+		List<Transaction> list=transactionService.getAllTransactions(pageNumber, pageSize );
+		HttpStatus status=HttpStatus.OK;
+		ApiSuccessPayload payload=ApiSuccessPayload.build(list, "Transaction  Found",status);
+		ResponseEntity<ApiSuccessPayload> response=new ResponseEntity<ApiSuccessPayload>(payload, status);
+		return response;
+		
+	}
+	
+	@GetMapping("/transactions/all/sorted")
+	public ResponseEntity<ApiSuccessPayload> getAllTransactions(@RequestParam int pageNumber,@RequestParam int pageSize, @RequestParam String sortBy)
+	{
+		List<Transaction> list=transactionService.getAllTransactions(pageNumber, pageSize , sortBy);
+		HttpStatus status=HttpStatus.OK;
+		ApiSuccessPayload payload=ApiSuccessPayload.build(list, "Transaction  Found",status);
+		ResponseEntity<ApiSuccessPayload> response=new ResponseEntity<ApiSuccessPayload>(payload, status);
+		return response;
+		
+	}
+
 }
 
