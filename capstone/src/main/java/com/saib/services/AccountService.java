@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,6 +17,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.saib.models.Account;
 import com.saib.repository.AccountRepository;
 import com.saib.util.Results;
+
+import io.sentry.Sentry;
 
 @Service
 public class AccountService {
@@ -86,10 +92,32 @@ public class AccountService {
 			return result;
 		}
 		catch (Exception e) {
+			Sentry.captureException(e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 		
 		
 	}
+	
+public List<Account> getAccountsByGender(String gender){
+		
+		List<Account> accounts=accountRepository.findAccountByGender(gender);
+		return accounts;
+	}
+
+public List<Account> getAllAccount ( Integer pageNumber, Integer pageSize, String sortBy){
+	Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+	Page <Account>PageRequest = accountRepository.findAll(paging);
+	int totalElements = PageRequest.getNumberOfElements();
+	int total = PageRequest.getTotalPages();
+	System.out.println("Total Numner of Pages Are: "+ total+ "  Total Elements: "+ totalElements);
+
+	if (PageRequest.hasContent()) {
+		return PageRequest.getContent();
+	}
+	else {
+		return new ArrayList<Account>();
+	}
+}
 
 }
