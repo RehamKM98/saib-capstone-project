@@ -12,6 +12,8 @@ import com.saib.models.Transaction;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction,Long>{
 
+	
+	//defined filteration methods
 	List<Transaction> getTransactionByTransactionType(String transactionType);
 	List<Transaction> getTransactionByDate(LocalDateTime date);
 	List<Transaction> getTransactionByDateAndTransactionType(LocalDateTime date, String transactionType );

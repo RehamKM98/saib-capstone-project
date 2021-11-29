@@ -25,11 +25,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-<dependency>
-    <groupId>io.sentry</groupId>
-    <artifactId>sentry-logback</artifactId>
-    <version>5.4.2</version>
-</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -66,10 +62,13 @@
 		    <version>2.9.2</version>
 		</dependency>
 		
-		
+		<dependency>
+    <groupId>io.sentry</groupId>
+    <artifactId>sentry-spring-boot-starter</artifactId>
+    <version>5.4.2</version>
+</dependency>
 		
 	</dependencies>
-
 
 	<build>
 		<plugins>

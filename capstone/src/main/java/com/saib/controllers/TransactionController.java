@@ -33,6 +33,8 @@ public class TransactionController {
 	@Autowired
 	TransactionService transactionService;
 	
+	
+	//Displaying all transactions
 	@GetMapping("/transactions")
 	public ResponseEntity<ApiSuccessPayload> getAllTransactions()
 	{
@@ -44,6 +46,7 @@ public class TransactionController {
 		return response;
 	}
 	
+	//display a transaction with specific ID
 	@GetMapping("/transactions/{transactionID}")
 	public ResponseEntity<ApiSuccessPayload> getTransactionByTransactionID(@PathVariable long transactionID)
 	{
@@ -54,6 +57,8 @@ public class TransactionController {
 		return response;
 	}
 	
+	//Adding transaction with the same fields in the database 
+	//the entary of the date should be in the format of:"yyyy-MM-dd HH:mm:ss" in order for the filter by date works
 	@PostMapping("/transactions")
 	public ResponseEntity<ApiSuccessPayload> addTransaction(@RequestBody Transaction transaction)
 	{
@@ -69,6 +74,7 @@ public class TransactionController {
 	}
 	
 	
+	//update transaction details by the transaction ID
 	@PutMapping("/transactions/{transactionID}")
 	public ResponseEntity<ApiSuccessPayload> updateTransaction(@RequestBody Transaction transaction , @PathVariable long transactionID)
 	{
@@ -78,6 +84,8 @@ public class TransactionController {
 		return response;
 	}
 	
+	
+	//delete a transaction by providing the ID
 	@DeleteMapping("/transactions/{transactionID}")
 	public ResponseEntity<ApiSuccessPayload> deleteTransaction(@PathVariable long transactionID)
 	{
@@ -87,6 +95,7 @@ public class TransactionController {
 		return response;
 	}
 	
+	//filter the transaction by the transaction type
 	@GetMapping("/transactions/transactionType/{transactionType}")
 	public ResponseEntity<ApiSuccessPayload> getTransactionByTransactionType(@PathVariable String transactionType)
 	{
@@ -97,6 +106,8 @@ public class TransactionController {
 		return response;
 	}
 	
+	
+	//filter transactions by transaction ID
 	@GetMapping("/transactions/date/{date}")
 	public ResponseEntity<ApiSuccessPayload> getTransactionByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime date)
 	{
@@ -107,6 +118,7 @@ public class TransactionController {
 		return response;
 	}
 	
+	//filter transactions by transaction date and type
 	@GetMapping("/transactions/date&transactionType/{date&transactionType}")
 	public ResponseEntity<ApiSuccessPayload> getTransactionByDateAndTransactionType(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime date, String transactionType)
 	{
@@ -117,6 +129,8 @@ public class TransactionController {
 		return response;
 	}
 	
+	
+	//pagination without sorting
 	@GetMapping("/transactions/all")
 	public ResponseEntity<ApiSuccessPayload> getAllTransactions(@RequestParam int pageNumber,@RequestParam int pageSize)
 	{
@@ -128,6 +142,8 @@ public class TransactionController {
 		
 	}
 	
+	
+	//pagination with sorting 
 	@GetMapping("/transactions/all/sorted")
 	public ResponseEntity<ApiSuccessPayload> getAllTransactions(@RequestParam int pageNumber,@RequestParam int pageSize, @RequestParam String sortBy)
 	{

@@ -25,13 +25,15 @@ public class TransactionService {
 	@Autowired
 	TransactionRepository transactionRepository;
 	
-	
+	//extract all the transactions from database 
 	public List<Transaction> getAllTransaction()
 	{
 		List<Transaction> list=transactionRepository.findAll();
 		return list;
 	}
 	
+	
+	//extract a specific transaction by ID from database
 	public Transaction getTransactionByTransactionID(long transactionID)
 	{
 		Optional<Transaction> optional=transactionRepository.findById(transactionID);
@@ -44,6 +46,8 @@ public class TransactionService {
 		}
 	}
 	
+	
+	//save transactions in database
 	public String addTransaction(Transaction transaction)
 	{
 		String result="";
@@ -58,6 +62,8 @@ public class TransactionService {
 		return result;
 	}
 	
+	
+	//update transaction in database
 	public String updateTransaction(Transaction transaction, long transactionID)
 	{
 		String result="";
@@ -76,7 +82,7 @@ public class TransactionService {
 		return result;	
 	}
 	
-	
+	//delete a transaction by ID from database
 	public String deleteTransaction(long transactionID)
 	{
 		String result="";
@@ -92,6 +98,8 @@ public class TransactionService {
 		}	
 	}
 	
+	
+	//extract the transactions with specific type
 	public List<Transaction> getTransactionByTransactionType(String TransactionType){
 		
 		List<Transaction> transactions=transactionRepository.getTransactionByTransactionType(TransactionType);
@@ -104,12 +112,15 @@ public class TransactionService {
 	}
 	
 
+	//extract transactions with specific date ans type
 	public List<Transaction> getTransactionByDateAndTransactionType(LocalDateTime date, String transactionType){
 
 		List<Transaction> transactions=transactionRepository.getTransactionByDateAndTransactionType(date , transactionType);
 		return transactions;
 	}
 	
+	
+	//pagination without sorting
 	public List<Transaction> getAllTransactions ( Integer pageNumber, Integer pageSize){
 		Pageable paging = PageRequest.of(pageNumber, pageSize);
 		Page <Transaction>PageRequest = transactionRepository.findAll(paging);
@@ -125,6 +136,8 @@ public class TransactionService {
 		}
 	}
 	
+	
+	//pagination with sorting
 	public List<Transaction> getAllTransactions ( Integer pageNumber, Integer pageSize, String sortBy){
 		Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
 		Page <Transaction>PageRequest = transactionRepository.findAll(paging);
