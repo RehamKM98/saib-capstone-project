@@ -117,8 +117,7 @@ public class TransactionService {
 	//extract transactions with specific date and type
 	public List<Transaction> getTransactionByDateAndTransactionType(LocalDate date, String transactionType){
 
-		List<Transaction> transactions=transactionRepository.getTransactionByDateAndTransactionType(date
- , transactionType);
+		List<Transaction> transactions=transactionRepository.getTransactionByDateAndTransactionType(date, transactionType);
 		return transactions;
 	}
 	
