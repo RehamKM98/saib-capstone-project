@@ -1,5 +1,6 @@
 package com.saib.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -42,7 +43,7 @@ public class Transaction {
 	private double amount;
 	
 	@Column(name="date")
-	private LocalDateTime date; 
+	private LocalDate date; 
 	
 	@Column(name="time")
 	private LocalDateTime time; 
@@ -61,7 +62,7 @@ public class Transaction {
 		// TODO Auto-generated constructor stub
 	}
 	public Transaction(long transactionID, String fromAccount, String toAccount, String fromAccountName,
-			String toAccountName, boolean sameBankTransaction, String otherBank, double amount, LocalDateTime date,
+			String toAccountName, boolean sameBankTransaction, String otherBank, double amount, LocalDate date,
 			LocalDateTime time, String transactionType, String status) {
 		super();
 		this.transactionID = transactionID;
@@ -125,10 +126,10 @@ public class Transaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public LocalDateTime getTime() {

@@ -1,5 +1,6 @@
 package com.saib.services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,17 +106,19 @@ public class TransactionService {
 		List<Transaction> transactions=transactionRepository.getTransactionByTransactionType(TransactionType);
 		return transactions;
 	}
-	public List<Transaction> getTransactionByDate(LocalDateTime date){
+	public List<Transaction> getTransactionByDate(String date){
 		
-		List<Transaction> transactions=transactionRepository.getTransactionByDate(date);
+		List<Transaction> transactions=transactionRepository.getTransactionByDate(LocalDate.parse(date)
+);
 		return transactions;
 	}
 	
 
 	//extract transactions with specific date ans type
-	public List<Transaction> getTransactionByDateAndTransactionType(LocalDateTime date, String transactionType){
+	public List<Transaction> getTransactionByDateAndTransactionType(String date, String transactionType){
 
-		List<Transaction> transactions=transactionRepository.getTransactionByDateAndTransactionType(date , transactionType);
+		List<Transaction> transactions=transactionRepository.getTransactionByDateAndTransactionType(LocalDate.parse(date)
+ , transactionType);
 		return transactions;
 	}
 	

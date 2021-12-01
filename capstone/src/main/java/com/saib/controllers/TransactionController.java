@@ -109,7 +109,7 @@ public class TransactionController {
 	
 	//filter transactions by transaction ID
 	@GetMapping("/transactions/date/{date}")
-	public ResponseEntity<ApiSuccessPayload> getTransactionByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime date)
+	public ResponseEntity<ApiSuccessPayload> getTransactionByDate(@RequestParam String date)
 	{
 		List<Transaction> list=transactionService.getTransactionByDate(date);
 		HttpStatus status=HttpStatus.OK;
@@ -120,7 +120,7 @@ public class TransactionController {
 	
 	//filter transactions by transaction date and type
 	@GetMapping("/transactions/date&transactionType/{date&transactionType}")
-	public ResponseEntity<ApiSuccessPayload> getTransactionByDateAndTransactionType(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime date, String transactionType)
+	public ResponseEntity<ApiSuccessPayload> getTransactionByDateAndTransactionType(@RequestParam String date, String transactionType)
 	{
 		List<Transaction> list=transactionService.getTransactionByDateAndTransactionType(date,transactionType);
 		HttpStatus status=HttpStatus.OK;
