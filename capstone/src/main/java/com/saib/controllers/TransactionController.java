@@ -1,6 +1,6 @@
 package com.saib.controllers;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.saib.models.Account;
@@ -58,7 +58,7 @@ public class TransactionController {
 	}
 	
 	//Adding transaction with the same fields in the database 
-	//the entary of the date should be in the format of:"yyyy-MM-dd HH:mm:ss" in order for the filter by date works
+	//when adding the transaction the date should be in format of yyyy-mm-dd
 	@PostMapping("/transactions")
 	public ResponseEntity<ApiSuccessPayload> addTransaction(@RequestBody Transaction transaction)
 	{
@@ -109,7 +109,7 @@ public class TransactionController {
 	
 	//filter transactions by transaction ID
 	@GetMapping("/transactions/date/{date}")
-	public ResponseEntity<ApiSuccessPayload> getTransactionByDate(@RequestParam String date)
+	public ResponseEntity<ApiSuccessPayload> getTransactionByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date)
 	{
 		List<Transaction> list=transactionService.getTransactionByDate(date);
 		HttpStatus status=HttpStatus.OK;
@@ -120,7 +120,7 @@ public class TransactionController {
 	
 	//filter transactions by transaction date and type
 	@GetMapping("/transactions/date&transactionType/{date&transactionType}")
-	public ResponseEntity<ApiSuccessPayload> getTransactionByDateAndTransactionType(@RequestParam String date, String transactionType)
+	public ResponseEntity<ApiSuccessPayload> getTransactionByDateAndTransactionType(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, String transactionType)
 	{
 		List<Transaction> list=transactionService.getTransactionByDateAndTransactionType(date,transactionType);
 		HttpStatus status=HttpStatus.OK;

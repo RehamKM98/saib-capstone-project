@@ -106,18 +106,18 @@ public class TransactionService {
 		List<Transaction> transactions=transactionRepository.getTransactionByTransactionType(TransactionType);
 		return transactions;
 	}
-	public List<Transaction> getTransactionByDate(String date){
+	public List<Transaction> getTransactionByDate(LocalDate date){
 		
-		List<Transaction> transactions=transactionRepository.getTransactionByDate(LocalDate.parse(date)
-);
+		List<Transaction> transactions=transactionRepository.getTransactionByDate(date);
+
 		return transactions;
 	}
 	
 
-	//extract transactions with specific date ans type
-	public List<Transaction> getTransactionByDateAndTransactionType(String date, String transactionType){
+	//extract transactions with specific date and type
+	public List<Transaction> getTransactionByDateAndTransactionType(LocalDate date, String transactionType){
 
-		List<Transaction> transactions=transactionRepository.getTransactionByDateAndTransactionType(LocalDate.parse(date)
+		List<Transaction> transactions=transactionRepository.getTransactionByDateAndTransactionType(date
  , transactionType);
 		return transactions;
 	}
